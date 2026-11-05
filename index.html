@@ -2112,6 +2112,17 @@
       }
 
       streak++;
+
+      if (streak === 100) {
+        if (soundEnabled) {
+          const streak100Audio = new Audio('streak-100.mp3');
+          streak100Audio.volume = 1.0;
+          streak100Audio.play().catch(error => {
+            console.warn('100-streak audio could not play:', error);
+          });
+        }
+      }
+
       if (streak > highStreak) highStreak = streak;
 
       const mult = getMultiplier();
