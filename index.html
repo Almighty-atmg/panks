@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>Spank Master CPS</title>
+  <title>Digital Input & Human-Computer Latency Reference</title>
   <style>
     :root {
       --bg-dark: #0f0c1b;
@@ -35,6 +35,255 @@
       position: relative;
     }
 
+    /* =============================================================
+       DECOY / MASK COVER PAGE STYLES
+    ============================================================= */
+    #maskCoverWrapper {
+      position: fixed;
+      inset: 0;
+      background: #f8fafc;
+      color: #1e293b;
+      z-index: 9999;
+      overflow-y: auto;
+      font-family: 'Georgia', 'Times New Roman', serif;
+      user-select: text;
+      -webkit-user-select: text;
+    }
+
+    #maskCoverWrapper.unlocked {
+      display: none !important;
+    }
+
+    .decoy-topbar {
+      position: sticky;
+      top: 0;
+      background: #ffffff;
+      border-bottom: 1px solid #e2e8f0;
+      padding: 10px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+      z-index: 10;
+      font-family: system-ui, -apple-system, sans-serif;
+    }
+
+    .decoy-brand {
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: #334155;
+      letter-spacing: 0.5px;
+    }
+
+    .mask-trigger-container {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .mask-symbol-btn {
+      background: #f1f5f9;
+      border: 1px solid #cbd5e1;
+      border-radius: 99px;
+      width: 38px;
+      height: 38px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+    }
+
+    .mask-symbol-btn:hover {
+      background: #e2e8f0;
+      transform: scale(1.08);
+    }
+
+    .decoy-date {
+      font-size: 0.8rem;
+      color: #64748b;
+    }
+
+    /* Secret Auth Box Dropdown */
+    #maskAuthModal {
+      position: fixed;
+      top: 60px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #0f172a;
+      color: #f8fafc;
+      padding: 18px 20px;
+      border-radius: 14px;
+      border: 1px solid #334155;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.35);
+      width: 310px;
+      z-index: 10001;
+      display: none;
+      font-family: system-ui, -apple-system, sans-serif;
+    }
+
+    #maskAuthModal.open {
+      display: block;
+      animation: fadeDrop 0.2s ease-out;
+    }
+
+    @keyframes fadeDrop {
+      from { opacity: 0; transform: translate(-50%, -10px); }
+      to { opacity: 1; transform: translate(-50%, 0); }
+    }
+
+    .mask-auth-title {
+      font-size: 0.82rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #94a3b8;
+      margin-bottom: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .mask-auth-input {
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 8px;
+      border: 1px solid #475569;
+      background: #1e293b;
+      color: #fff;
+      font-size: 0.95rem;
+      outline: none;
+      margin-bottom: 10px;
+    }
+
+    .mask-auth-input:focus {
+      border-color: #38bdf8;
+    }
+
+    .mask-auth-submit {
+      width: 100%;
+      padding: 9px;
+      background: #2563eb;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 0.88rem;
+      cursor: pointer;
+    }
+
+    .mask-auth-submit:hover {
+      background: #1d4ed8;
+    }
+
+    .mask-auth-error {
+      color: #f87171;
+      font-size: 0.78rem;
+      margin-top: 8px;
+      text-align: center;
+      display: none;
+    }
+
+    /* Informational Article Content */
+    .decoy-article {
+      max-width: 760px;
+      margin: 40px auto;
+      padding: 0 24px 60px;
+      line-height: 1.75;
+    }
+
+    .decoy-category {
+      font-family: system-ui, sans-serif;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: #2563eb;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+    }
+
+    .decoy-article h1 {
+      font-size: 2.2rem;
+      color: #0f172a;
+      margin-bottom: 14px;
+      font-weight: 700;
+      line-height: 1.25;
+      background: none;
+      -webkit-text-fill-color: initial;
+      text-shadow: none;
+      text-transform: none;
+      letter-spacing: normal;
+    }
+
+    .decoy-meta {
+      font-family: system-ui, sans-serif;
+      font-size: 0.85rem;
+      color: #64748b;
+      padding-bottom: 24px;
+      margin-bottom: 28px;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .decoy-article h2 {
+      font-size: 1.35rem;
+      color: #1e293b;
+      margin: 28px 0 12px;
+      font-family: system-ui, sans-serif;
+    }
+
+    .decoy-article p {
+      margin-bottom: 18px;
+      font-size: 1.05rem;
+      color: #334155;
+    }
+
+    .decoy-info-box {
+      background: #f1f5f9;
+      border-left: 4px solid #3b82f6;
+      padding: 16px 20px;
+      margin: 24px 0;
+      font-family: system-ui, sans-serif;
+      font-size: 0.92rem;
+      color: #475569;
+    }
+
+    .decoy-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 24px 0;
+      font-family: system-ui, sans-serif;
+      font-size: 0.9rem;
+    }
+
+    .decoy-table th, .decoy-table td {
+      border: 1px solid #cbd5e1;
+      padding: 10px 14px;
+      text-align: left;
+    }
+
+    .decoy-table th {
+      background: #f1f5f9;
+      font-weight: 700;
+      color: #1e293b;
+    }
+
+    /* Hide real game while locked */
+    #realGameContainer {
+      display: none;
+    }
+
+    #realGameContainer.unlocked {
+      display: block;
+    }
+
+    /* =============================================================
+       ORIGINAL SPANK MASTER GAME STYLES
+    ============================================================= */
     body.camera-shake {
       animation: screenRumble 0.5s cubic-bezier(.36,.07,.19,.97) both;
     }
@@ -343,7 +592,7 @@
       text-align: center;
     }
 
-    h1 {
+    .game-title {
       font-size: 2.1rem;
       font-weight: 900;
       text-transform: uppercase;
@@ -1062,208 +1311,346 @@
 </head>
 <body>
 
-  <div id="screenFlash"></div>
-  <div class="mobile-backdrop" id="mobileBackdrop" onclick="closeLeaderboard()"></div>
-
-  <!-- Anti-Autoclicker Cheat Modal -->
-  <div id="cheatOverlay">
-    <div class="cheat-card">
-      <div class="cheat-icon">🚨</div>
-      <div class="cheat-title">Autoclicker Detected</div>
-      <div class="cheat-message">
-        You cheater using autoclick, dont u have manners u bitch, bro its a spanky game plz pla it wisely
-      </div>
-      <button class="btn-cheat-close" onclick="dismissCheatWarning()">I'm Sorry, I Will Play Fair</button>
-    </div>
-  </div>
-
-  <!-- Intro Dialog -->
-  <div id="introOverlay">
-    <div class="intro-card">
-      <div class="intro-title">Spank Master CPS</div>
-      <p class="intro-desc">Enter your Spanker tag to play. Scores are permanently saved to Supabase.</p>
+  <!-- =============================================================
+       DECOY / MASK INFORMATIONAL COVER PAGE
+  ============================================================= -->
+  <div id="maskCoverWrapper">
+    <nav class="decoy-topbar">
+      <div class="decoy-brand">OpenDocs // Systems & Latency Archive</div>
       
-      <form id="introForm" onsubmit="startGame(event)">
-        <div class="name-input-group">
-          <label for="playerNameInput">Spanker Tag / Name (Min. 4 Chars)</label>
-          <input 
-            type="text" 
-            id="playerNameInput" 
-            class="name-input" 
-            placeholder="e.g. ThunderCheeks" 
-            minlength="4"
-            maxlength="14" 
-            required 
-            autocomplete="off" 
-          />
-        </div>
+      <!-- Top Center Mask Symbol -->
+      <div class="mask-trigger-container">
+        <button class="mask-symbol-btn" id="maskToggleBtn" onclick="toggleMaskBox()" title="Portal">
+          🎭
+        </button>
+      </div>
 
-        <label class="dev-checkbox-container" for="devCheckbox">
-          <input type="checkbox" id="devCheckbox" onchange="toggleDevPasswordField()" />
-          <span class="dev-checkbox-label">Developer</span>
-        </label>
+      <div class="decoy-date">Ref ID: DOC-884-HCI</div>
+    </nav>
 
-        <div class="name-input-group dev-password-group" id="devPasswordGroup">
-          <label for="devPasswordInput" style="color:var(--accent-gold);">Developer Passkey</label>
-          <input 
-            type="password" 
-            id="devPasswordInput" 
-            class="name-input" 
-            placeholder="Enter passkey..." 
-            autocomplete="off" 
-          />
-        </div>
-
-        <button type="submit" class="btn-start">⚡ Enter the Arena</button>
+    <!-- Password Popup Box -->
+    <div id="maskAuthModal">
+      <div class="mask-auth-title">
+        <span>🔐 Enter Access Key</span>
+        <span style="cursor:pointer;" onclick="toggleMaskBox()">✖</span>
+      </div>
+      <form onsubmit="verifyMaskPassword(event)">
+        <input 
+          type="password" 
+          id="maskPassInput" 
+          class="mask-auth-input" 
+          placeholder="Authentication password..." 
+          autocomplete="off" 
+        />
+        <button type="submit" class="mask-auth-submit">Unlock Portal</button>
+        <div class="mask-auth-error" id="maskErrorMsg">Invalid authentication password.</div>
       </form>
     </div>
+
+    <!-- Normal Informational Article Content -->
+    <article class="decoy-article">
+      <div class="decoy-category">Computer Science & Human-Computer Interaction</div>
+      <h1>Understanding Peripheral Polling Rates and Input Latency in Modern Web Architectures</h1>
+      <div class="decoy-meta">
+        Published by Technical Documentation Group &bull; Reading Time: 4 mins &bull; Updated 2026
+      </div>
+
+      <p>
+        In modern interactive applications, input latency refers to the total time elapsed between a physical user actuation—such as depressing a mechanical switch or capacitive touch surface—and the corresponding visual or acoustic feedback rendered by the display subsystem.
+      </p>
+
+      <div class="decoy-info-box">
+        <strong>Key Summary:</strong> Browser event loops process pointer inputs asynchronously. High-frequency polling hardware (1000 Hz+) reduces hardware-level delay to under 1 millisecond, shifting optimization requirements to DOM rendering pipelines.
+      </div>
+
+      <h2>1. Hardware Polling and Debounce Algorithms</h2>
+      <p>
+        Standard USB Human Interface Devices (HID) operate at fixed polling intervals ranging from 125 Hz (8 ms) to 1000 Hz (1 ms). When a physical contact closes a circuit, microscopic metallic vibrations produce signal oscillations known as <em>contact bounce</em>. Firmware microcontrollers implement debounce timers to filter spurious signals before dispatching interrupt packets to the host operating system.
+      </p>
+
+      <table class="decoy-table">
+        <thead>
+          <tr>
+            <th>Polling Frequency</th>
+            <th>Interval Window</th>
+            <th>Typical Application</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>125 Hz</td>
+            <td>8.0 ms</td>
+            <td>Standard Office Peripherals & Embedded Controllers</td>
+          </tr>
+          <tr>
+            <td>500 Hz</td>
+            <td>2.0 ms</td>
+            <td>Low-Latency Productivity & CAD Workstations</td>
+          </tr>
+          <tr>
+            <td>1000 Hz</td>
+            <td>1.0 ms</td>
+            <td>High-Precision Telemetry & Real-Time Simulation</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h2>2. Event Propagation in Browser Runtimes</h2>
+      <p>
+        When the operating system kernel receives an interrupt request (IRQ), the window manager translates raw coordinates into platform-agnostic pointer events. Inside Chromium and WebKit engines, the compositor thread forwards <code>pointerdown</code> and <code>mousedown</code> dispatches to the main JavaScript execution thread.
+      </p>
+      <p>
+        To maintain deterministic responsiveness, applications decouple state mutation from visual layout recalculation using <code>requestAnimationFrame</code> callbacks and hardware-accelerated CSS transforms.
+      </p>
+    </article>
   </div>
 
-  <div class="app-layout">
-    <main class="game-section">
-      <div class="player-badge">
-        <span>Player: <strong id="activePlayerTag">Guest</strong></span>
-        <button class="btn-edit-name" onclick="openNamePrompt()">[Change Name]</button>
-        <button class="btn-admin-gear" id="adminGearBtn" style="display:none;" onclick="openAdminPanel()">⚙️ Admin</button>
+  <!-- =============================================================
+       REAL SPANK MASTER CPS GAME (HIDDEN UNTIL AUTHENTICATED)
+  ============================================================= -->
+  <div id="realGameContainer">
+    <div id="screenFlash"></div>
+    <div class="mobile-backdrop" id="mobileBackdrop" onclick="closeLeaderboard()"></div>
+
+    <!-- Anti-Autoclicker Cheat Modal -->
+    <div id="cheatOverlay">
+      <div class="cheat-card">
+        <div class="cheat-icon">🚨</div>
+        <div class="cheat-title">Autoclicker Detected</div>
+        <div class="cheat-message">
+          You cheater using autoclick, dont u have manners u bitch, bro its a spanky game plz pla it wisely
+        </div>
+        <button class="btn-cheat-close" onclick="dismissCheatWarning()">I'm Sorry, I Will Play Fair</button>
       </div>
+    </div>
 
-      <header>
-        <h1>Spank Master CPS</h1>
-        <div class="subtitle">Reach a 250-streak for the cinematic Mega Spank!</div>
-      </header>
+    <!-- Intro Dialog -->
+    <div id="introOverlay">
+      <div class="intro-card">
+        <div class="intro-title">Spank Master CPS</div>
+        <p class="intro-desc">Enter your Spanker tag to play. Scores are permanently saved to Supabase.</p>
+        
+        <form id="introForm" onsubmit="startGame(event)">
+          <div class="name-input-group">
+            <label for="playerNameInput">Spanker Tag / Name (Min. 4 Chars)</label>
+            <input 
+              type="text" 
+              id="playerNameInput" 
+              class="name-input" 
+              placeholder="e.g. ThunderCheeks" 
+              minlength="4"
+              maxlength="14" 
+              required 
+              autocomplete="off" 
+            />
+          </div>
 
-      <div class="dashboard">
-        <div class="stat-card">
-          <div class="stat-label">Score</div>
-          <div class="stat-value" id="val-score">0</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-label">SPS (CPS)</div>
-          <div class="stat-value highlight" id="val-cps">0.0</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-label">Streak</div>
-          <div class="stat-value" id="val-streak">0</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-label">Best Streak</div>
-          <div class="stat-value highlight" id="val-high-streak">0</div>
-        </div>
+          <label class="dev-checkbox-container" for="devCheckbox">
+            <input type="checkbox" id="devCheckbox" onchange="toggleDevPasswordField()" />
+            <span class="dev-checkbox-label">Developer</span>
+          </label>
+
+          <div class="name-input-group dev-password-group" id="devPasswordGroup">
+            <label for="devPasswordInput" style="color:var(--accent-gold);">Developer Passkey</label>
+            <input 
+              type="password" 
+              id="devPasswordInput" 
+              class="name-input" 
+              placeholder="Enter passkey..." 
+              autocomplete="off" 
+            />
+          </div>
+
+          <button type="submit" class="btn-start">⚡ Enter the Arena</button>
+        </form>
       </div>
+    </div>
 
-      <button class="btn-show-leaderboard" id="btnShowLeaderboard" onclick="openLeaderboard()">
-        <span class="pulse-dot"></span>
-        🏆 Show Leaderboard (Top 10)
-      </button>
-
-      <!-- Mega & Moan Volume Slider (Just Below Show Leaderboard) -->
-      <div class="mega-volume-control">
-        <div class="mega-volume-header">
-          <span>💥 Mega Explosion & Moan Volume</span>
-          <strong id="megaVolumeVal">100%</strong>
-        </div>
-        <input 
-          type="range" 
-          id="megaVolumeSlider" 
-          class="mega-slider" 
-          min="0" 
-          max="100" 
-          value="100" 
-          oninput="updateMegaVolume(this.value)" 
-        />
-      </div>
-
-      <div class="arena" id="arena">
-        <div class="target-wrapper" id="target">
-          <svg width="250" height="230" viewBox="0 0 260 240" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <radialGradient id="buttGrad" cx="50%" cy="40%" r="65%">
-                <stop offset="0%" stop-color="#ff9ebb" />
-                <stop offset="55%" stop-color="#ff4d79" />
-                <stop offset="100%" stop-color="#c9184a" />
-              </radialGradient>
-              <filter id="softGlow" x="-20%" y="-20%" width="140%" height="140%">
-                <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#ff2a85" flood-opacity="0.35"/>
-              </filter>
-            </defs>
-
-            <g filter="url(#softGlow)">
-              <path d="M 130 50 C 90 20, 20 50, 20 120 C 20 185, 75 225, 128 220 C 130 180, 130 110, 130 50 Z" 
-                    fill="url(#buttGrad)" stroke="#590d22" stroke-width="4" stroke-linejoin="round" />
-              <path d="M 130 50 C 170 20, 240 50, 240 120 C 240 185, 185 225, 132 220 C 130 180, 130 110, 130 50 Z" 
-                    fill="url(#buttGrad)" stroke="#590d22" stroke-width="4" stroke-linejoin="round" />
-              <path d="M 130 75 C 130 125, 130 175, 130 215" stroke="#590d22" stroke-width="4" stroke-linecap="round" opacity="0.6"/>
-              <ellipse cx="75" cy="115" rx="30" ry="18" transform="rotate(-30 75 115)" fill="#ffffff" opacity="0.32" />
-              <ellipse cx="185" cy="115" rx="30" ry="18" transform="rotate(30 185 115)" fill="#ffffff" opacity="0.32" />
-              <path d="M 40 70 C 95 90, 165 90, 220 70" stroke="#ffd60a" stroke-width="6" stroke-linecap="round" opacity="0.85"/>
-            </g>
-          </svg>
+    <div class="app-layout">
+      <main class="game-section">
+        <div class="player-badge">
+          <span>Player: <strong id="activePlayerTag">Guest</strong></span>
+          <button class="btn-edit-name" onclick="openNamePrompt()">[Change Name]</button>
+          <button class="btn-admin-gear" id="adminGearBtn" style="display:none;" onclick="openAdminPanel()">⚙️ Admin</button>
         </div>
 
-        <div class="mega-hand-container" id="megaHandContainer">
-          <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100%; height:100%;">
-            <defs>
-              <linearGradient id="fireGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stop-color="#ffffff" />
-                <stop offset="25%" stop-color="#ffee55" />
-                <stop offset="60%" stop-color="#ff4400" />
-                <stop offset="100%" stop-color="#880000" />
-              </linearGradient>
-            </defs>
-            <path d="M 40 140 C 15 120, -10 80, 10 50 C 20 70, 30 70, 35 40 C 45 65, 55 50, 60 25 C 75 55, 85 45, 95 15 C 110 50, 125 40, 135 25 C 145 55, 165 60, 185 40 C 180 75, 195 95, 175 130 C 190 150, 180 180, 150 185 C 130 190, 70 190, 40 140 Z" fill="url(#fireGrad)" opacity="0.85" />
-            <path d="M 50 135 C 35 120, 35 90, 60 75 C 70 68, 85 72, 90 82 C 93 66, 112 66, 117 80 C 123 68, 140 74, 140 89 C 146 80, 158 89, 154 107 C 146 142, 105 165, 75 158 Z" fill="#ffe8a3" stroke="#d84a00" stroke-width="5" stroke-linejoin="round"/>
-            <path d="M 68 100 L 71 130 M 90 95 L 92 130 M 114 100 L 112 130" stroke="#d84a00" stroke-width="4" stroke-linecap="round"/>
-          </svg>
+        <header>
+          <h1 class="game-title">Spank Master CPS</h1>
+          <div class="subtitle">Reach a 250-streak for the cinematic Mega Spank!</div>
+        </header>
+
+        <div class="dashboard">
+          <div class="stat-card">
+            <div class="stat-label">Score</div>
+            <div class="stat-value" id="val-score">0</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">SPS (CPS)</div>
+            <div class="stat-value highlight" id="val-cps">0.0</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Streak</div>
+            <div class="stat-value" id="val-streak">0</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Best Streak</div>
+            <div class="stat-value highlight" id="val-high-streak">0</div>
+          </div>
         </div>
 
-        <div class="mega-banner" id="megaBanner">💥 250 STREAK MEGA SPANK! 💥</div>
-      </div>
+        <button class="btn-show-leaderboard" id="btnShowLeaderboard" onclick="openLeaderboard()">
+          <span class="pulse-dot"></span>
+          🏆 Show Leaderboard (Top 10)
+        </button>
 
-      <div class="combo-bar-container">
-        <div class="combo-header">
-          <span class="combo-rank" id="comboRank">Cold Warmup</span>
-          <span id="multiplierText">1.0x Multiplier</span>
+        <!-- Mega & Moan Volume Slider (Just Below Show Leaderboard) -->
+        <div class="mega-volume-control">
+          <div class="mega-volume-header">
+            <span>💥 Mega Explosion & Moan Volume</span>
+            <strong id="megaVolumeVal">100%</strong>
+          </div>
+          <input 
+            type="range" 
+            id="megaVolumeSlider" 
+            class="mega-slider" 
+            min="0" 
+            max="100" 
+            value="100" 
+            oninput="updateMegaVolume(this.value)" 
+          />
         </div>
-        <div class="combo-track">
-          <div class="combo-fill" id="comboFill"></div>
+
+        <div class="arena" id="arena">
+          <div class="target-wrapper" id="target">
+            <svg width="250" height="230" viewBox="0 0 260 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <radialGradient id="buttGrad" cx="50%" cy="40%" r="65%">
+                  <stop offset="0%" stop-color="#ff9ebb" />
+                  <stop offset="55%" stop-color="#ff4d79" />
+                  <stop offset="100%" stop-color="#c9184a" />
+                </radialGradient>
+                <filter id="softGlow" x="-20%" y="-20%" width="140%" height="140%">
+                  <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#ff2a85" flood-opacity="0.35"/>
+                </filter>
+              </defs>
+
+              <g filter="url(#softGlow)">
+                <path d="M 130 50 C 90 20, 20 50, 20 120 C 20 185, 75 225, 128 220 C 130 180, 130 110, 130 50 Z" 
+                      fill="url(#buttGrad)" stroke="#590d22" stroke-width="4" stroke-linejoin="round" />
+                <path d="M 130 50 C 170 20, 240 50, 240 120 C 240 185, 185 225, 132 220 C 130 180, 130 110, 130 50 Z" 
+                      fill="url(#buttGrad)" stroke="#590d22" stroke-width="4" stroke-linejoin="round" />
+                <path d="M 130 75 C 130 125, 130 175, 130 215" stroke="#590d22" stroke-width="4" stroke-linecap="round" opacity="0.6"/>
+                <ellipse cx="75" cy="115" rx="30" ry="18" transform="rotate(-30 75 115)" fill="#ffffff" opacity="0.32" />
+                <ellipse cx="185" cy="115" rx="30" ry="18" transform="rotate(30 185 115)" fill="#ffffff" opacity="0.32" />
+                <path d="M 40 70 C 95 90, 165 90, 220 70" stroke="#ffd60a" stroke-width="6" stroke-linecap="round" opacity="0.85"/>
+              </g>
+            </svg>
+          </div>
+
+          <div class="mega-hand-container" id="megaHandContainer">
+            <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100%; height:100%;">
+              <defs>
+                <linearGradient id="fireGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#ffffff" />
+                  <stop offset="25%" stop-color="#ffee55" />
+                  <stop offset="60%" stop-color="#ff4400" />
+                  <stop offset="100%" stop-color="#880000" />
+                </linearGradient>
+              </defs>
+              <path d="M 40 140 C 15 120, -10 80, 10 50 C 20 70, 30 70, 35 40 C 45 65, 55 50, 60 25 C 75 55, 85 45, 95 15 C 110 50, 125 40, 135 25 C 145 55, 165 60, 185 40 C 180 75, 195 95, 175 130 C 190 150, 180 180, 150 185 C 130 190, 70 190, 40 140 Z" fill="url(#fireGrad)" opacity="0.85" />
+              <path d="M 50 135 C 35 120, 35 90, 60 75 C 70 68, 85 72, 90 82 C 93 66, 112 66, 117 80 C 123 68, 140 74, 140 89 C 146 80, 158 89, 154 107 C 146 142, 105 165, 75 158 Z" fill="#ffe8a3" stroke="#d84a00" stroke-width="5" stroke-linejoin="round"/>
+              <path d="M 68 100 L 71 130 M 90 95 L 92 130 M 114 100 L 112 130" stroke="#d84a00" stroke-width="4" stroke-linecap="round"/>
+            </svg>
+          </div>
+
+          <div class="mega-banner" id="megaBanner">💥 250 STREAK MEGA SPANK! 💥</div>
         </div>
+
+        <div class="combo-bar-container">
+          <div class="combo-header">
+            <span class="combo-rank" id="comboRank">Cold Warmup</span>
+            <span id="multiplierText">1.0x Multiplier</span>
+          </div>
+          <div class="combo-track">
+            <div class="combo-fill" id="comboFill"></div>
+          </div>
+        </div>
+
+        <div class="controls">
+          <button id="btnSound" class="btn-pill">🔊 Sound: ON</button>
+          <button id="btnTestMega" class="btn-pill btn-test">🔥 Test Mega</button>
+        </div>
+      </main>
+
+      <aside class="leaderboard-container" id="leaderboardBox">
+        <div class="lb-header">
+          <div class="lb-title">🏆 Top 10 Spankers</div>
+          <div class="lb-sync-badge" id="syncBadge">● Supabase</div>
+          <button class="btn-admin-gear" id="lbAdminBtn" style="display:none;" onclick="openAdminPanel()">⚙️</button>
+          <button class="lb-close-btn" onclick="closeLeaderboard()">✖ Close</button>
+        </div>
+
+        <div class="lb-list" id="lbList"></div>
+      </aside>
+    </div>
+
+    <!-- Admin Modal -->
+    <div id="adminOverlay" class="hidden">
+      <div class="admin-card">
+        <div class="admin-header">
+          <h3>⚙️ Developer Controls</h3>
+          <button class="admin-close" onclick="closeAdminPanel()">✖</button>
+        </div>
+
+        <div class="admin-player-list" id="adminPlayerList"></div>
+
+        <button class="btn-wipe-all" onclick="adminClearAll()">
+          🗑️ Wipe Entire Database
+        </button>
       </div>
-
-      <div class="controls">
-        <button id="btnSound" class="btn-pill">🔊 Sound: ON</button>
-        <button id="btnTestMega" class="btn-pill btn-test">🔥 Test Mega</button>
-      </div>
-    </main>
-
-    <aside class="leaderboard-container" id="leaderboardBox">
-      <div class="lb-header">
-        <div class="lb-title">🏆 Top 10 Spankers</div>
-        <div class="lb-sync-badge" id="syncBadge">● Supabase</div>
-        <button class="btn-admin-gear" id="lbAdminBtn" style="display:none;" onclick="openAdminPanel()">⚙️</button>
-        <button class="lb-close-btn" onclick="closeLeaderboard()">✖ Close</button>
-      </div>
-
-      <div class="lb-list" id="lbList"></div>
-    </aside>
-  </div>
-
-  <!-- Admin Modal -->
-  <div id="adminOverlay" class="hidden">
-    <div class="admin-card">
-      <div class="admin-header">
-        <h3>⚙️ Developer Controls</h3>
-        <button class="admin-close" onclick="closeAdminPanel()">✖</button>
-      </div>
-
-      <div class="admin-player-list" id="adminPlayerList"></div>
-
-      <button class="btn-wipe-all" onclick="adminClearAll()">
-        🗑️ Wipe Entire Database
-      </button>
     </div>
   </div>
 
   <script>
+    /* -------------------------------------------------------------
+       MASK COVER PAGE AUTHENTICATION LOGIC
+    ------------------------------------------------------------- */
+    let isGameUnlocked = false;
+
+    function toggleMaskBox() {
+      const modal = document.getElementById('maskAuthModal');
+      const errMsg = document.getElementById('maskErrorMsg');
+      const input = document.getElementById('maskPassInput');
+      modal.classList.toggle('open');
+      errMsg.style.display = 'none';
+      input.value = '';
+      if (modal.classList.contains('open')) {
+        setTimeout(() => input.focus(), 50);
+      }
+    }
+
+    function verifyMaskPassword(e) {
+      if (e) e.preventDefault();
+      const val = document.getElementById('maskPassInput').value.trim();
+
+      if (val === 'almighty') {
+        isGameUnlocked = true;
+        document.getElementById('maskCoverWrapper').classList.add('unlocked');
+        document.getElementById('realGameContainer').classList.add('unlocked');
+        document.title = 'Spank Master CPS';
+
+        // Boot the real game
+        checkIntro();
+        updateUI();
+        fetchServerLeaderboard();
+      } else {
+        const errMsg = document.getElementById('maskErrorMsg');
+        errMsg.style.display = 'block';
+        document.getElementById('maskPassInput').value = '';
+        document.getElementById('maskPassInput').focus();
+      }
+    }
+
     /* -------------------------------------------------------------
        ANTI-INSPECT & DEVTOOLS BREAKPOINT TRAP
     ------------------------------------------------------------- */
@@ -1356,6 +1743,7 @@
 
     /* Server Communication */
     async function fetchServerLeaderboard() {
+      if (!isGameUnlocked) return;
       try {
         const res = await fetch('/api/leaderboard');
         if (res.ok) {
@@ -1383,6 +1771,7 @@
     }
 
     async function sendScoreToServer(streak, score, cps) {
+      if (!isGameUnlocked) return;
       try {
         updateSyncStatus("● Syncing...", "#00f0ff");
         const res = await fetch('/api/leaderboard', {
@@ -1410,7 +1799,7 @@
     }
 
     function recordPlayerMetrics(currentStreak, currentScore) {
-      if (!activePlayerName || isCheaterBlocked) return;
+      if (!activePlayerName || isCheaterBlocked || !isGameUnlocked) return;
 
       clearTimeout(saveDebounceTimer);
       saveDebounceTimer = setTimeout(() => {
@@ -1508,7 +1897,7 @@
           <div class="admin-player-info">
             <div class="admin-player-name">${escapeHtml(player.name)}</div>
             <div class="admin-player-metrics">
-              Streak: <strong style="color:var(--accent-gold);">${player.streak}</strong> \vert{} Score: <strong>${player.score}</strong>
+              Streak: <strong style="color:var(--accent-gold);">${player.streak}</strong> &bull; Score: <strong>${player.score}</strong>
             </div>
           </div>
           <div class="admin-row-actions">
@@ -1910,6 +2299,7 @@
     }
 
     function updateCPS() {
+      if (!isGameUnlocked) return;
       const now = performance.now();
       clickTimestamps = clickTimestamps.filter(t => now - t <= 1000);
       const currentCps = clickTimestamps.length;
@@ -2100,7 +2490,7 @@
 
     function handleSpank(e) {
       e.preventDefault();
-      if (isMegaSpankActive || isCheaterBlocked) return;
+      if (isMegaSpankActive || isCheaterBlocked || !isGameUnlocked) return;
 
       const now = performance.now();
       clickTimestamps.push(now);
@@ -2176,9 +2566,6 @@
         triggerMegaSpank();
       }
     });
-
-    checkIntro();
-    updateUI();
   </script>
 </body>
 </html>
