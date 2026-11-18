@@ -1428,7 +1428,7 @@
     <div id="introOverlay">
       <div class="intro-card">
         <div class="intro-title">Spank Master CPS</div>
-        <p class="intro-desc">Enter your Spanker tag to play. Scores are permanently saved to Supabase.</p>
+        <p class="intro-desc">Enter your Spanker tag to play. Scores are permanently saved to Daddybase.</p>
         
         <form id="introForm" onsubmit="startGame(event)">
           <div class="name-input-group">
@@ -1585,7 +1585,7 @@
       <aside class="leaderboard-container" id="leaderboardBox">
         <div class="lb-header">
           <div class="lb-title">🏆 Top 10 Spankers</div>
-          <div class="lb-sync-badge" id="syncBadge">● Supabase</div>
+          <div class="lb-sync-badge" id="syncBadge">● Daddybase</div>
           <button class="btn-admin-gear" id="lbAdminBtn" style="display:none;" onclick="openAdminPanel()">⚙️</button>
           <button class="lb-close-btn" onclick="closeLeaderboard()">✖ Close</button>
         </div>
@@ -1605,7 +1605,7 @@
         <div class="admin-player-list" id="adminPlayerList"></div>
 
         <button class="btn-wipe-all" onclick="adminClearAll()">
-          🗑️ Wipe Entire Database
+          🗑️ Wipe Entire Daddybase
         </button>
       </div>
     </div>
@@ -1755,7 +1755,7 @@
             if (overlay && !overlay.classList.contains('hidden')) {
               renderAdminList();
             }
-            updateSyncStatus("● Supabase Synced", "#00ff88");
+            updateSyncStatus("● Daddybase", "#00ff88");
 
             const me = cloudPlayers.find(p => p.name.toLowerCase() === activePlayerName.toLowerCase());
             if (me) {
@@ -1787,7 +1787,7 @@
         });
 
         if (res.ok) {
-          updateSyncStatus("● Supabase Synced", "#00ff88");
+          updateSyncStatus("● Daddybase Synced", "#00ff88");
         } else {
           const errData = await res.json().catch(() => ({}));
           const reason = errData.error || `HTTP ${res.status}`;
@@ -1886,7 +1886,7 @@
       list.innerHTML = '';
 
       if (cloudPlayers.length === 0) {
-        list.innerHTML = '<div style="text-align:center; color:#888; padding:20px;">No players in Supabase.</div>';
+        list.innerHTML = '<div style="text-align:center; color:#888; padding:20px;">No players in Daddybase.</div>';
         return;
       }
 
@@ -1945,7 +1945,7 @@
       const player = cloudPlayers[idx];
       if (!player) return;
 
-      if (!confirm(`Delete "${player.name}" from Supabase?`)) return;
+      if (!confirm(`Delete "${player.name}" from Daddybase?`)) return;
 
       const res = await fetch('/api/admin', {
         method: 'POST',
@@ -1965,7 +1965,7 @@
     }
 
     async function adminClearAll() {
-      if (!confirm("⚠️ Completely wipe all records in Supabase?")) return;
+      if (!confirm("⚠️ Completely wipe all records in Daddybase?")) return;
 
       const res = await fetch('/api/admin', {
         method: 'POST',
